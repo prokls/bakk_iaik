@@ -1,0 +1,136 @@
+\section{Boolean algebra}
+\label{sec:boole}
+\index{Boolean algebra}
+%
+Boolean algebra has a long history. George Boole (\lifetime{1815}{1864}), John Venn (\lifetime{1834}{1923}) and William Stanley Jevons (\lifetime{1835}{1882}) pioneered an algebraic structure $\langle B, \lor, \land, \neg, 0, 1\rangle$ with the following properties ($x$ and $y$ are boolean expressions and therefore in $B$)~\cite[10]{Sat20}:
+%
+\begin{itemize}
+  \item $\land$ and $\lor$ are binary operators. $\neg$ is an unary operator.
+  \item $0, 1 \in B$
+  \item $x \land y = y \land x; x \lor y = y \lor x$
+  \item $x \lor (y \land z) = (x \lor y) \land (x \lor z); x \land (y \lor z) = (x \land y) \lor (x \land z)$
+  \item $x \lor \neg x = 1; x \land \neg x = 0$
+  \item $1 \land x = x; 0 \lor x = x$
+\end{itemize}
+
+In the following sections boolean algebra will be used to derive clauses for the \gls{sat} solver. De Morgan's laws are a set of transformation rules in boolean algebra showing equivalent statements. The following one will be used in the document:
+\[
+  \neg (x \land y) \qquad\Leftrightarrow\qquad (\neg x) \land (\neg y)
+\]
+
+\section{Satisfiability}
+\label{sec:sat}
+\index{Satisfiability}
+%
+The satisfiability problem states the following question:
+\begin{quote}
+  ``Is a given boolean equation in conjunctive normal form \emph{satisfiable}?''
+\end{quote}
+%
+Satisfiability or consistency in logic refers to property of a boolean expression. A boolean equation is satisfiable if and only if there exists some truth assignment for the given expression which evaluates to true.
+
+\index{Cook-Levin theorem}
+The Cook-Levin theorem states that the \gls{sat} problem is NP-complete. This was proven in 1971 by Stephen Cook~\cite{Sat01} and Leonid Levin~\cite{Sat02} independently. As such \gls{sat} problems seem to be computationally infeasible for larger problem sizes and \gls{sat} solvers are tools to solve those NP-complete problems in the best possible way.
+
+\index{Conjunctive normal form}
+\index{Disjunctive normal form}
+\index{Clauses}
+A $k$-SAT problem (with $k \in \mathbb{N}$) is a \gls{sat} problem in \gls{cnf} with at maximum $k$ literals per clause. A \gls{cnf} is the conjunction of disjunctions (so-called \emph{clauses}). A \gls{dnf} is the disjunction of conjunctions.
+
+\section{SAT solvers}
+\label{sec:satsolvers}
+\index{SAT solvers}
+%
+\index{DIMACS format}
+In 1958 Martin Davis and Hilary Putnam proposed the CNF as input for satisfiability problems in an unpublished manuscript for the NSA~\cite{Sat20}. The DIMACS format has been developed as universal input format for SAT solvers~\cite{Sat09}.
+
+\gls{sat} solvers today are variants of the DPLL algorithm. In the original design, four techniques are discussed:
+\begin{description}
+  \item[unit clause] Clauses with one literal are immediately processed and taken as assignment.
+  \item[pure literal rule] If all occurences of a variable happen with the same polarity, all those clauses can be discarded if the variable gets assigned its polarity.
+  \item[elimination of atomic formulas] Formulas which are atomic for the given equation system get eliminated.
+  \item[splitting rule] Even a single variable might split the whole search space and shall be used as an advantage for speedup.
+\end{description}
+%
+The first two techniques are explicitly part of the DPLL algorithm. The often cited paper for the DPLL algorithm is Davis' ``A Computing Procedure for Quantification Theory''~\cite{Sat05} and a discussion of the history is provided in ``Early History and Perspectives of Automated Deduction''~\cite{Sat06}. A discussion of possible approaches to this problem is given by Jun Gu, Paul W. Purdom, John Franco and Benjamin Wah~\cite{Sat08}.
+
+Further efforts were especially put into efficient representation of the search space with techniques like early pruning, replacement of a tree-like search space with a DAG-like search space and variable choice heuristics~\cite[24]{Sat20}.
+
+Two further rules are considered:
+\begin{description}
+  \item[Shortest clause rule]
+    Prefer the assignment of a variable from an existing clause containing the fewest unset literals.
+  \item[Majority rule]
+    Prefer the assignment of a variable with the maximum difference between the number of its positive and negative literals.
+\end{description}
+
+\subsection{Assumptions}
+\label{sec:satsolvers-assumptions}
+\index{Assumptions (SAT solvers)}
+%
+The interface of a \gls{sat} solver typically consists of a function to add clauses and a solve function. As such most of the current \gls{sat} solvers work incrementally by adding clauses to the \gls{sat} solver and repeatedly invoking the solve function.
+
+Assumptions are a separate concept which allows the user to specify hints. An assumption is one assignment of a variable that will be lost after one SAT solver evaluation. This way the user has a certain level of control which variables are evaluated.
+
+Assumptions can be simply integrated to the \gls{cnf} as unit clauses (where are negative assignment requires a negation in front of the corresponding variable) once their value shall persistently be assigned.
+% TODO: better research. Where are assumptions studied?
+
+\subsection{Runtime analysis}
+\label{sec:satsolvers-runtime}
+%
+Satisfiability of a CNF formula~$\phi$ with $n$ boolean variables can be decided in time $\mathcal{O}(2^n \abs{\phi})$ by enumerating all assignments of the variables. Also the number of literals $l$ and number of clauses $m$ have to be considered.
+
+In 2002 researchers found some deterministic algorithm~\cite{Sat07} using local search to solve $k$-SAT instances with the best runtime to this day: $(2 - 2/(k+1))^n$. However the general \gls{sat} problem is not limited to a number of literals per clause.
+
+Because the desired runtime is not always achieved, focus is put on the encoding and transformation of SAT instances. Grigorii Samuilovich Tseitin got famous for his research in transformations and encoding like the Tseitin encoding. In a recent paper~\cite{Sat22} Peter Stuckey points out that there are no original SAT problems and we should focus on representing problems in the way they originally appear. SAT research is closely related to the field of \gls{csp}.
+
+In terms of performance the following properties of a \gls{cnf} can be used as measurement~\cite{Sat20}:
+\begin{description}
+  \item[Encoding size]
+    is defined by the number of clauses, literals or variables.
+    We always add clauses to SAT solvers making the equation larger. Bug symmetry breaking clauses and blocked clauses can actually improve evaluation speed.
+  \item[Consistency properties]
+    This includes arc consistency and forward checking.
+  \item[Solution density]
+    The number of solutions divided by $2^n$ ($n$ as the number of variables). The higher the solution density, the better.
+\end{description}
+
+\section{Obtain CNF and DNF from truthtable}
+\label{sec:cnf-dnf}
+%
+\index{Truthtable}
+Truthtables have 2 dimensions and list all possible boolean variable configurations and their outcome for a given function. Ludwig Wittgenstein established binary truthtables in his philosophical book ``Tractatus Logico-Phulosophicus''.
+
+Having a boolean function we can easily determine the equivalent \gls{cnf} or \gls{dnf}.
+
+\begin{description}
+  \item[Disjunctive normal form]
+    The disjunctive normal form can be retrieved by extracting all configurations resulting in value true. Each configuration represents a conjunction of literals. Literals are generated by taking the variable corresponding to the truth value\footnote{Value true for a variable $v$ yields the literal $v$. Value false yields the literal $\neg v$.}. The DNF is the disjunction of the configurations.
+  \item[Conjunctive normal form]
+    The conjunctive normal form can be retrieved by extracting all false configurations. Each configuration represents a disjunction of literals and literals are created with opposite polarity\footnote{Value true for a variable $v$ yields the literal $\neg v$. Value false yields the literal $v$.}. The CNF is the conjunction of the configurations.
+\end{description}
+
+It is important to point out that building the truthtable takes $\mathcal{O}(2^n)$ for $n$ variables if constant runtime is assumed for the boolean function. This leads to a problem in our implementation. In general we don't know the functions to be used in advance, but require the equivalent \gls{cnf} for the \gls{sat} solver. In our implementation we generate the truthtable for every function to be used with an exponential algorithm.
+
+% TODO: I can't recall. Did Pawel provide some research here? Also see emails!
+
+\section{A SAT solver abstraction}
+\label{sec:satsolver-abstraction}
+%
+For the implementation we have developed a SAT solver interface to simplify exchange of the SAT solver and for easier debug output. When we had to debug a bug in my implementation, we exchanged the actual SAT solver object with my \texttt{DebugSatSolver} (verbose human-readable representation of the clauses), \texttt{DimacsSatSolver} (DIMACS output) or \texttt{CppSatSolver} (generates static C++ source code of a testcase which directly uses CMSAT without nltool).
+
+The interface is only introduced for clarification of the function names used in the algorithms following. Some C++ keywords are left out for brevity.
+
+\lstset{language={C++},caption={SAT solver abstraction interface}}
+\begin{lstlisting}
+  class ISatSolver {
+    void Assume(int assignment);
+    void AddClause(const std::initializer_list<int> lits);
+    void AddXor(const std::initializer_list<int> lits,
+      bool is_true = true);
+    int NewVar();
+    bool Solve();
+  }
+\end{lstlisting}
+
+The interface requires boolean variables to be requested before their first usage and boolean variables are represented as signed integers. Variables below 0 represent negated variables.

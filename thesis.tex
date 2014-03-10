@@ -1,0 +1,151 @@
+\documentclass[fontsize=12pt,paper=A4,abstract=true]{scrreprt}
+\usepackage[utf8]{inputenc}
+\usepackage[UKenglish]{babel}
+\usepackage[backend=biber]{biblatex}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{pifont}
+%\usepackage{lmodern}
+
+\usepackage{baskervald}
+\usepackage[T1]{fontenc}
+
+\usepackage{microtype}
+%\usepackage{libertineRoman}  % TODO: remove
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{scrpage2}
+\usepackage[xindy]{glossaries}
+\usepackage{listings}
+\usepackage[normalem]{ulem}
+\usepackage{makeidx}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{rotating}
+\addbibresource{thesis.bib}
+
+\setcounter{secnumdepth}{3}
+\setlength{\parskip}{\baselineskip}
+
+% Other titles:
+%  1. SAT solvers in cryptanalysis
+%  2. Assumption-based hash collision search in differential cryptanalysis using SAT solvers
+\title{
+  Using SAT Solvers to detect Contradictions
+  in Differential Cryptanalysis
+}
+
+\author{Lukas Prokop}
+\date{\today}
+
+\makeglossaries
+\makeindex
+
+\makeatletter
+\hypersetup{
+  pdftitle={\@title},
+  pdfauthor={\@author},
+  pdfsubject={SAT solvers in cryptanalysis},
+  pdfcreator={\LaTeX},
+  pdfkeywords={SAT solver, hash algorithms, differential cryptanalysis},
+  urlcolor=[rgb]{0.2,0.2,0.2},
+  linkcolor=[rgb]{0.2,0.2,0.2},
+  citecolor=[rgb]{0.1,0.1,0.1},
+  baseurl={http://lukas-prokop.at/proj/bakk_iaik},
+  pdfview=FitV,
+  pdflang={en-US},
+  unicode,
+  breaklinks,
+  colorlinks,
+  bookmarks
+}
+\makeatother
+
+\newcommand{\nltool}{nltool}
+\newcommand{\cmsat}{cryptominisat}
+\newcommand{\yes}{\ding{51}}
+\newcommand{\no}{\ding{55}}
+\newcommand{\bc}[1]{#1}  % BitCondition
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\lifetime}[2]{*\,#1 \dag\,#2}
+\renewcommand{\implies}{\rightarrow}
+
+%\newcommand{\diffchar}[1]{\mbox{\ttfamily #1\obeylines}}
+\newenvironment{diffchar}{\center\begingroup\ttfamily}{\endgroup\endcenter}
+
+\newacronym{sat}{SAT}{satisfiability}
+\newacronym{cnf}{CNF}{Conjunctive Normal Form}
+\newacronym{dnf}{DNF}{Disjunctive Normal Form}
+\newacronym{csp}{CSP}{Constraint Programming}
+
+\makeatletter
+\def\UL@putbox{\ifx\UL@start\@empty \else % not inner
+  \vrule\@width\z@ \LA@penalty\@M
+  {\UL@skip\wd\UL@box \UL@leaders \kern-\UL@skip}%
+    \phantom{\box\UL@box}%
+  \fi}
+\makeatother
+
+\begin{document}
+\input{titlepage.tex}
+
+\newpage
+\subsection*{\centerline{Statement of Originality}}
+%
+\vspace{14pt}\indent
+This thesis contains no material that has been accepted for the recognition
+of any other degree at any other university. To the best of my knowledge,
+this thesis contains no material previously published or written
+by another person, except where reference is made in the text.
+\vspace{30pt}
+
+\noindent\uline{--- Lukas Prokop ---} \\[5pt]
+\phantom{---} Lukas Prokop \phantom{---}
+
+\tableofcontents
+
+\begin{abstract}
+  The NP-completeness of SAT has been proven in 1971 by Stephen Cook
+  and under the assumption of $P \neq N\!P$, the problem is infeasible
+  for large problem sizes. However, recent advances in the field of
+  SAT solver design make large SAT problems solvable on an industrial
+  level if enough computational resources are provided.
+  At the same time, hash algorithms' collision resistance depends
+  on the computational complexity of the algorithm.
+  Combining those techniques we might be able break the security of
+  modern hash algorithms.
+  In this bachelor's thesis we present an implementation for performing
+  (partial) SAT-based attacks on hash algorithms by evaluating the
+  satisfiability of differential characteristics. We introduce three
+  encodings for its representation.
+\end{abstract}
+
+\chapter{Introduction}
+\label{chap:introduction}
+\input{intro.tex}
+
+\chapter{Automated search for differential characteristics}
+\label{chap:search}
+\input{search.tex}
+
+\chapter{SAT solvers}
+\label{chap:sat}
+\input{sat.tex}
+
+\chapter{Bridging differential cryptanalysis and SAT solving}
+\label{chap:implementation}
+\input{implementation.tex}
+
+\chapter{Future work}
+\label{chap:next}
+\input{next_work.tex}
+
+\printbibliography
+\listoffigures
+\listoftables
+\printindex
+
+\end{document}

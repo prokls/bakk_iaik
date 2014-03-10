@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+TEXLIVE=/usr/local/texlive/2013/bin/x86_64-linux/
+
+rm thesis.{aux,bbl,bcf,blg,glo,idx,ilg,ind,loa,log,out,run.xml,toc,xdy}
+rm thesis-blx.bib
+rm thesis.glsdefs
+
+$TEXLIVE"pdflatex" thesis &&
+  $TEXLIVE"biber" thesis &&
+  $TEXLIVE"pdflatex" thesis &&
+  $TEXLIVE"makeindex" thesis.idx &&
+  $TEXLIVE"pdflatex" thesis

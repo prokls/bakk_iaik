@@ -1,0 +1,27 @@
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \thispagestyle{empty}
+  \null
+  \vskip 2em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\Large\bfseries Using SAT Solvers to detect \\ Contradictions in Differential Cryptanalysis \par}%
+    \vskip 1.5em%
+    {\normalsize
+      \lineskip .5em%
+      \begin{tabular}[t]{c}%
+        \@author \\
+        <\href{mailto:lukas.prokop@student.tugraz.at}{lukas.prokop@student.tugraz.at}> \\
+        \vspace{260pt} \\
+        Advisors: Florian Mendel, Martin Schläffer \\[12pt]
+        \includegraphics{img/iaik.pdf} \\[12pt]
+        Institute for Applied Information \\ Processing and Communications, TU Graz, Austria \\
+      \end{tabular}\par}%
+    \vskip 1em%
+    {\normalsize Dated: \@date}%
+  \end{center}%
+  \par
+  \vskip 1.5em}
+\@maketitle
+\makeatother
