@@ -149,7 +149,7 @@ Let's consider a single bitslice with 2 input arguments and 1 output argument. T
     \end{subfigure}%
     \begin{subfigure}[b]{0.23\textwidth}
       \begin{diffchar}
-        A: C--? \\
+        A: C\textendash{}\textendash{}? \\
         A: 3xx0 \\
         S: x?x?
       \end{diffchar}
@@ -165,7 +165,7 @@ Let's consider a single bitslice with 2 input arguments and 1 output argument. T
     \begin{diffchar}
       A: BC0 \\
       A: 501 \\
-      S: -10  % TODO: why is it negatively indented?
+      S: \textendash{}10  % TODO: why is it negatively indented?
     \end{diffchar}
     \caption{An invalid differential characteristic.}
     \label{dc:xor-faulty}
@@ -283,8 +283,8 @@ So in conclusion both functions reuse bits of the previous bitslice. Previous im
     \end{subfigure}
     \begin{subfigure}[b]{0.23\textwidth}
       \begin{diffchar}
-       A: ---x \\
-       B: ---x \\
+       A: \textendash{}\textendash{}\textendash{}x \\
+       B: \textendash{}\textendash{}\textendash{}x \\
        S: ???x
       \end{diffchar}
       \caption{UNSAT}
@@ -292,9 +292,9 @@ So in conclusion both functions reuse bits of the previous bitslice. Previous im
     \end{subfigure}
     \begin{subfigure}[b]{0.23\textwidth}
       \begin{diffchar}
-        A: ---x \\
-        B: ---x \\
-        S: ???-
+        A: \textendash{}\textendash{}\textendash{}x \\
+        B: \textendash{}\textendash{}\textendash{}x \\
+        S: ???\textendash{}
       \end{diffchar}
       \caption{SAT}
       \label{dc:tcs-addition-4}
@@ -304,8 +304,8 @@ So in conclusion both functions reuse bits of the previous bitslice. Previous im
   \begin{center}
     \begin{subfigure}[b]{0.23\textwidth}
       \begin{diffchar}
-        A: ---x \\
-        B: ---x \\
+        A: \textendash{}\textendash{}\textendash{}x \\
+        B: \textendash{}\textendash{}\textendash{}x \\
         S: ????
       \end{diffchar}
       \caption{SAT}
@@ -313,17 +313,17 @@ So in conclusion both functions reuse bits of the previous bitslice. Previous im
     \end{subfigure}
     \begin{subfigure}[b]{0.23\textwidth}
       \begin{diffchar}
-        A: ---- \\
-        B: ---x \\
-        S: x-??
+        A: \textendash{}\textendash{}\textendash{}\textendash{} \\
+        B: \textendash{}\textendash{}\textendash{}x \\
+        S: x\textendash{}??
       \end{diffchar}
       \caption{UNSAT}
       \label{dc:tcs-addition-6}
     \end{subfigure}
     \begin{subfigure}[b]{0.23\textwidth}
       \begin{diffchar}
-        A: ---x \\
-        B: ---x \\
+        A: \textendash{}\textendash{}\textendash{}x \\
+        B: \textendash{}\textendash{}\textendash{}x \\
         S: x???
       \end{diffchar}
       \caption{SAT}
@@ -338,7 +338,7 @@ So in conclusion both functions reuse bits of the previous bitslice. Previous im
   \begin{center}
     \begin{subfigure}[b]{0.23\textwidth}
       \begin{diffchar}
-        A: ---- \\
+        A: \textendash{}\textendash{}\textendash{}\textendash{} \\
         S: 0000
       \end{diffchar}
       \caption{SAT}
@@ -346,8 +346,8 @@ So in conclusion both functions reuse bits of the previous bitslice. Previous im
     \end{subfigure}
     \begin{subfigure}[b]{0.23\textwidth}
       \begin{diffchar}
-        A: 7C-3 \\
-        S: -3u?
+        A: 7C\textendash{}3 \\
+        S: \textendash{}3u?
       \end{diffchar}
       \caption{SAT}
       \label{dc:tcs-sigma-2}
@@ -357,7 +357,7 @@ So in conclusion both functions reuse bits of the previous bitslice. Previous im
   \begin{center}
     \begin{subfigure}[b]{0.23\textwidth}
       \begin{diffchar}
-        A: ---x \\
+        A: \textendash{}\textendash{}\textendash{}x \\
         S: 0000
       \end{diffchar}
       \caption{UNSAT}
