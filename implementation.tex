@@ -7,11 +7,11 @@ Equivalently is there any boolean assignment within both evaluation instances su
 \section{General architecture}
 \label{sec:architecture}
 %
-In the following we discuss various architectures to evaluate the satisfiability of differential characteristics. We try to achieve the best performance for this task within \nltool{}'s automated search.
+In the following we discuss various architectures to evaluate the validity of differential characteristics. We try to achieve the best performance for this task within \nltool{}'s automated search.
 
 \subsection{Hash algorithm specification and truth table}
 %
-At the very beginning we specify a hash algorithm. This specification contains the elementary operations. We consider some simple hash algorithm applying only the SHA2 sigma operation consisting of XOR operations:
+At the very beginning we specify a hash algorithm. This specification contains the elementary operations. We consider some simple hash algorithm applying the SHA-2 Sigma operation consisting of XOR operations:
 \lstset{language={C++},caption={A very basic hash algorithm specification},label={lst:sigma}}
 \begin{lstlisting}
   satstep->Add<SatGenerator<XOR3>>(
@@ -28,7 +28,7 @@ Using a command line parameter \texttt{nltool} gets to know which hash algorithm
 The following properties are given for the primitive functions and the hash algorithm:
 \begin{itemize}
   \item Any pure function using integers as arguments can be transformed into a SAT equivalent.
-  \item A truthtable is used exploiting exponential behavior, but this truthtable generation is only run once. In a different implementation it might also run at compile time.
+  \item A truth table is used exploiting exponential behavior, but this truth table generation is only run once. In a different implementation it might also run at compile time.
   \item \texttt{satstep} describes a computational unit of any scale thus allowing to combine elementary operations to advanced algebraic operations, hash algorithm rounds or even whole hash algorithms.
 \end{itemize}
 
@@ -38,19 +38,19 @@ The following properties are given for the primitive functions and the hash algo
 Constraints to the solution of the SAT solver will be introduced in two places. The actual clauses are defined by some encoding explained in section~\ref{sec:three-approaches}:
 \begin{itemize}
   \item Every bit condition is represented by a set of clauses. In our implementation we introduced a \texttt{SatCondition} object which takes a bit condition as parameter and the \texttt{addClauses} method will add all corresponding clauses to the SAT solver.
-  \item The hash algorithm defines which function is applied. This function is analyzed using a truth table and the corresponding clauses are generated.
+  \item The hash algorithm defines which functions are applied. This function is analyzed using a truth table and the corresponding clauses are generated.
 \end{itemize}
 
 \subsection{Structure of encodings}
 \label{sec:encoding-structure}
 %
-A distinction of the \emph{Init} and \emph{Update} step was already defined in section~\ref{sec:nltool}. Those steps are split into several substeps in some encodings. This hierarchy represents the most detailed structure throughout all encodings:
+A distinction of the \emph{Init} and \emph{Update} step was already defined in section~\ref{sec:nltool}. Those steps are split into several substeps in all encodings:
 \begin{enumerate}
   \item Initialization
     \begin{enumerate}
-      \item Detect Overlapping bits: Sometimes bit conditions are reused within a hash algorithm. For example one differential word is the rotated version of another differential word as in SHA-2 Sigma. In such a case the two bit conditions connected through the rotation must be equivalent. In this step the reuse of bit conditions is detected. See section~\ref{sec:automated-search} for a more detailed discussion of overlapping bits.
+      \item Detect Overlapping bits: Sometimes bit conditions are reused within a hash algorithm. For example one differential word is the rotated version of another differential word as in SHA-2 Sigma. In such a case the two bit conditions connected through rotation must be equivalent. In this step the reuse of bit conditions is detected. See section~\ref{sec:automated-search} for a more detailed discussion of overlapping bits.
       \item Introduce new bit conditions: Introduce a new \texttt{SatCondition} object (SAT equivalent of a bit condition) for every bit condition.
-      \item Setup encoding: For assumption-based encoding, \textbf{clauses} are added here (the ones that must be added \textbf{for every \texttt{SatCondition} object}). Also request the required variables per \texttt{SatCondition} object.
+      \item Setup encoding: For assumption-based encoding, \textbf{clauses} are added here (the ones that must be added \textbf{for every \texttt{SatCondition} object}). Request the required boolean variables for each \texttt{SatCondition} object.
       \item Apply function to bitslices: Elementary functions in \nltool{} are defined per bitslice. In this step the function is applied successively to every bitslice \textbf{adding clauses specific for the function}.
     \end{enumerate}
   \item Update BitCondition
@@ -112,7 +112,7 @@ The simple evaluation approach uses 2 boolean variables per bit condition. This 
     \end{tabular}
     \caption[Simple Evaluation clauses]{
         Simple Evaluation clauses added for a bit condition.
-        A bit condition corresponds to two boolean variabes $z$ and $z^*$.
+        A bit condition corresponds to two boolean variables $z$ and $z^*$.
     }
     \label{tab:simple-eval-clauses}
   \end{center}

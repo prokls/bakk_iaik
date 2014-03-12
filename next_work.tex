@@ -50,7 +50,7 @@ The propagation in the automated search improved previous implementation, becaus
 \begin{itemize}
   \item Tests shall be made also with different state-of-the-art SAT solvers from different families of the DPLL algorithm such that comparison is possible.
   \item An implementation of the activation literal approach is desirable.
-  \item The truthtable is a bottleneck of the Initialization step. Tests are required whether approaches like Tseitin's Definitional Normal Form perform better as discussed in~\cite{Sat03}.
+  \item The truth table is a bottleneck of the Initialization step. Tests are required whether approaches like Tseitin's Definitional Normal Form perform better as discussed in~\cite{Sat03}.
   \item SAT solvers themselves propagate values in their evaluation. The same concept is desirable in \nltool. Strategies to put SAT solver technology directly into the framework shall be discussed.
   \item Any fast simplification algorithms for boolean equations are of interest. In the initialization step all clauses are already known. Performing a simplification algorithm especially to the clauses of the primitive functions might lead to a speedup. Karnaugh maps, the Quine-McCluskey algorithm and the Espresso algorithm shall be considered. Simplification algorithms have been implemented by Akawat Homsirikamol et~al.~\cite{Cry04} with HDL in the Quartus II software.
 \end{itemize}
@@ -58,5 +58,5 @@ The propagation in the automated search improved previous implementation, becaus
 \section{Independent approaches}
 %
 \begin{itemize}
-  \item SMT solvers and STP allow a more powerful encoding of the problem to solve. This deprecates the usage of truthtables and encodings. A comparison is of interest.
+  \item SMT solvers and STP allow a more powerful encoding of the problem to solve. This deprecates the usage of truth tables and encodings. A comparison is of interest.
 \end{itemize}

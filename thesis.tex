@@ -33,7 +33,7 @@
 %  1. SAT solvers in cryptanalysis
 %  2. Assumption-based hash collision search in differential cryptanalysis using SAT solvers
 \title{
-  Using SAT Solvers to detect Contradictions
+  Using SAT Solvers to Detect Contradictions
   in Differential Cryptanalysis
 }
 
@@ -113,13 +113,14 @@ by another person, except where reference is made in the text.
   SAT solver design make large SAT problems solvable on an industrial
   level if enough computational resources are provided.
   At the same time, hash algorithms' collision resistance depends
-  on the computational complexity of the algorithm.
+  on the computational complexity of the algorithm which has successfully
+  been reduced by Wang~et~al.
   Combining those techniques we might be able break the security of
   modern hash algorithms.
   In this bachelor's thesis we present an implementation for performing
   (partial) SAT-based attacks on hash algorithms by evaluating the
-  satisfiability of differential characteristics. We introduce three
-  encodings for its representation.
+  validity of differential characteristics. We introduce three
+  encodings for its evaluation.
 \end{abstract}
 
 \chapter{Introduction}

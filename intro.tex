@@ -1,11 +1,11 @@
 Hash algorithms are ubiquitous in our world of digital communication.
-For example using hash algorithms we can verify data integrity of a message
+For example using hash algorithms we can verify data integrity of messages
 with high probability without transmitting the actual message. Fundamentally
 hash algorithms take arbitrary input data and return a hash value of fixed
-size specific for this input. In cryptology the security of cryptographical
+size specific for this input. In cryptology the security of cryptographic
 systems depends on three properties of hash algorithms. One of them is called
 collision resistance meaning that given a hash value it is computationally
-infeasible to find two different inputs leading to the given hash value.
+infeasible to find two different inputs leading to the defined hash value.
 
 SAT solvers are sophisticated tools to solve difficult mathematical problems
 in the most efficient way. They take a boolean equation as input and tell
@@ -16,12 +16,12 @@ represented with boolean algebra.
 In this bachelor's thesis we combine both ideas. We will use SAT solvers to
 represent states in the hash algorithm evaluation. Given an intermediate
 state of the evaluation, we consider additional assumptions which might
-lead to a hash collision. We can use our implementation to verify whether
-this assumption is a valid state within the hash algorithm specification.
-This way we are searching for collisions within the hash algorithm starting
-with an intermediate state.
+lead to the representation of a hash collision. We can use our implementation
+to verify whether this assumption is a valid state within the hash algorithm
+specification. This way we are searching for collisions within the hash
+algorithm starting with an intermediate state.
 
-Our implementation is an extension for an existing framework for differential
+Our implementation is an extension of an existing framework for differential
 cryptanalysis. We therefore do not represent the state of an hash algorithm
 evaluation directly, but rather the difference between two instances evaluating
 a hash algorithm. Hopefully each instance will end up with different input data
