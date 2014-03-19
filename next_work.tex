@@ -2,6 +2,7 @@
 %
 % REMARK. testcases are run for about 900 seconds. iter/sec was taken from the last entry
 %         started with ./nltool -i ../hash/sha2/chars/sha256/startchars/27-t10.xml
+%         SAT_EXPLICIT_SOLUTION must be disabled in every branch.
 %
 %\begin{table}[t]
 \begin{sidewaystable}
@@ -10,14 +11,27 @@
                                & \multicolumn{3}{c}{1 additional bit condition requires in average} & \\
    Approach                    & boolean vars & clauses & assumptions   & performance \\
   \hline
-   Simple evaluation           & $2.0$        & $1.375$ & $0$           & $\approx117$ iter/sec \\  % TODO: verify: does it really always recreate the SAT solver
-   % lp/sat: Info: seed 2236221566 time: 893 iter/sec: 122 iterations: 4081 stak_soze: 95 contr: 463 restarts: 329 minfree: 0 absminfree: 0 credits: 9537 phase: 1 found :0 smax: 95 complete: 1/1 0/0
-   Activation literals         & $7.0$        & $6$     & $5.6875$      & N/A \\
+   % lp/sat-se: Info: seed: 2578791537 time: 886 iterations/sec: 0 iterations: 568 stack_size: 4 contr: 38 restarts: 1 minfree: 105 absminfree: 105 credits: 9962 phase: 0 found: 0 smax: 9 complete: 0/0 
+   % lp/sat-se: Info: seed: 2578791537 time: 888 iterations/sec: 0 iterations: 569 stack_size: 4 contr: 38 restarts: 1 minfree: 105 absminfree: 105 credits: 9962 phase: 0 found: 0 smax: 9 complete: 0/0 
+   Simple evaluation           & $2.0$        & $1.375$ & $0$           & $0$ iter/sec \\
+   % lp/sat-al: Info: seed: 1124351917 time: 887 iterations/sec: 23 iterations: 130 stack_size: 0 contr: 3 restarts: 63 minfree: 160 absminfree: 44 credits: 9997 phase: 0 found: 0 smax: 3 complete: 0/0 
+   % lp/sat-al: Info: seed: 1124351917 time: 889 iterations/sec: 23 iterations: 38 stack_size: 1 contr: 0 restarts: 64 minfree: 315 absminfree: 44 credits: 10000 phase: 0 found: 0 smax: 1 complete: 0/0 
+   %
+   % lp/sat-al: Info: seed: 1124351917 time: 895 iterations/sec: 23 iterations: 113 stack_size: 4 contr: 0 restarts: 65 minfree: 197 absminfree: 44 credits: 10000 phase: 0 found: 0 smax: 4 complete: 0/0 
+   % lp/sat-al: Info: seed: 1124351917 time: 897 iterations/sec: 23 iterations: 61 stack_size: 1 contr: 0 restarts: 66 minfree: 276 absminfree: 44 credits: 10000 phase: 0 found: 0 smax: 1 complete: 0/0
+   Activation literals         & $7.0$        & $6$     & $5.6875$      & $\approx23$ iter/sec \\
    Exhaustive encoding         & $17$         & $46$    & $1$           & N/A \\
-   Reduced encoding            & $9$          & $20$    & $1.25$        & $\approx177$ iter/sec \\
-   % RE: Info: seed 1645337080 time: 894 iter/sec: 177 iterations: 123 stack_size: 0 contr: 3 restarts: 459 minfree: 152 absminfree: 0 credits: 9997 phase: 0 found: 0 smax: 2 complete: 0/0
+   % lp/sat-re: Info: seed: 843358102 time: 886 iterations/sec: 11 iterations: 146 stack_size: 3 contr: 5 restarts: 33 minfree: 159 absminfree: 51 credits: 9995 phase: 0 found: 0 smax: 4 complete: 0/0 
+   % lp/sat-re: Info: seed: 843358102 time: 888 iterations/sec: 11 iterations: 171 stack_size: 1 contr: 10 restarts: 33 minfree: 151 absminfree: 51 credits: 9990 phase: 0 found: 0 smax: 4 complete: 0/0 
+   % lp/sat-re: Info: seed: 843358102 time: 890 iterations/sec: 11 iterations: 193 stack_size: 4 contr: 10 restarts: 33 minfree: 151 absminfree: 51 credits: 9990 phase: 0 found: 0 smax: 4 complete: 0/0 
+   %
+   % lp/sat-re: Info: seed: 843358102 time: 899 iterations/sec: 11 iterations: 315 stack_size: 0 contr: 24 restarts: 33 minfree: 118 absminfree: 51 credits: 9976 phase: 0 found: 0 smax: 5 complete: 0/0 
+   % lp/sat-re: Info: seed: 843358102 time: 901 iterations/sec: 11 iterations: 25 stack_size: 1 contr: 0 restarts: 34 minfree: 320 absminfree: 51 credits: 10000 phase: 0 found: 0 smax: 1 complete: 0/0 
+   % lp/sat-re: Info: seed: 843358102 time: 903 iterations/sec: 11 iterations: 59 stack_size: 1 contr: 0 restarts: 34 minfree: 286 absminfree: 51 credits: 10000 phase: 0 found: 0 smax: 1 complete: 0/0 
+   Reduced encoding            & $9$          & $20$    & $1.25$        & $\approx11$ iter/sec \\
+   %OLD RE: Info: seed 1645337080 time: 894 iter/sec: 177 iterations: 123 stack_size: 0 contr: 3 restarts: 459 minfree: 152 absminfree: 0 credits: 9997 phase: 0 found: 0 smax: 2 complete: 0/0
    Differential state encoding & $4$          & $7$     & $1.5$         & ? \\
-   % DSE: Info: seed 1967938805 time: 567 iterations/sec: 8 iterations: 332 stack_size: 4 contr: 19 restarts: 15 minfree: 116 absminfree: 79 credits: 9981 phase: 0 found: 0 smax: 7 complete: 0/0
+   %OLD DSE: Info: seed 1967938805 time: 567 iterations/sec: 8 iterations: 332 stack_size: 4 contr: 19 restarts: 15 minfree: 116 absminfree: 79 credits: 9981 phase: 0 found: 0 smax: 7 complete: 0/0
   \end{tabular}
   \caption[All encodings in comparison]{
     All encodings in comparison.
