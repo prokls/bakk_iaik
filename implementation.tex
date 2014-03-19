@@ -206,12 +206,12 @@ gives us a boolean expression in CNF.
     \begin{description}
       \item[Detect Overlapping Bits] Iterate over all bit conditions and store overlapping bit conditions.
       \item[Introduce new bit conditions] Introduce a new \texttt{SatCondition} object for every bit condition that will be used. A bit condition gets skipped, if this is not the first reference to an overlapping bit.
-      \item[Setup Encoding] $7$ boolean variables per bit condition are requested from the SAT solver. The clauses given in Table~\ref{tab:simple-eval-clauses} are added.
+      \item[Setup Encoding] $7$ boolean variables per bit condition are requested from the SAT solver. The clauses given in Table~\ref{tab:activation-literals-clauses} are added.
       \item[Apply function to bitslices] Add all clauses which result from the function definition applied to this differential characteristic.
     \end{description}
   \item[Update BitCondition] The values of the bit conditions are known.
     \begin{description}
-      \item[Set bit condition value] The assumptions resulting from the bit condition value are created. They are given in Table~\ref{tab:simple-eval-clauses}.
+      \item[Set bit condition value] The assumptions resulting from the bit condition value are created. They are given in Table~\ref{tab:activation-literals-clauses}.
       \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
     \end{description}
 \end{description}
@@ -243,7 +243,7 @@ gives us a boolean expression in CNF.
         Be aware that all activation literals $a_i$ must be set to false,
         if not stated otherwise.
     }
-    \label{tab:simple-eval-clauses}
+    \label{tab:activation-literals-clauses}
   \end{center}
 \end{table}
 
