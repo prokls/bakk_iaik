@@ -1,13 +1,13 @@
 With our implementation we want to answer the following question:
 \begin{quote}
-  ``Given some differential characteristic, is this characteristic valid?''
+  ``Given some differential characteristic, is this characteristic satisfiable?''
 \end{quote}
 Equivalently is there any boolean assignment within both evaluation instances such that the applied function of the hash algorithm matches the result and the bit conditions do correspond. This question was already raised in section~\ref{sec:diffchar-examples}. This is the same question stated as main difficulty for the attack of SHA-2~\cite[293]{Cry07} when trying to apply automated search.
 
 \section{General architecture}
 \label{sec:architecture}
 %
-In the following we discuss various architectures to evaluate the validity of differential characteristics. We try to achieve the best performance for this task within \nltool{}'s automated search.
+In the following we discuss various architectures to evaluate the satisfiability of differential characteristics. We try to achieve the best performance for this task within \nltool{}'s automated search.
 
 \subsection{Hash algorithm specification and truth table}
 %
@@ -19,7 +19,7 @@ At the very beginning we specify a hash algorithm. This specification contains t
   );
 \end{lstlisting}
 
-Here \texttt{satstep} is the computational unit which uses the SAT solver to report whether a given differential characteristic is valid or not. \texttt{SatGenerator} is a wrapper which takes a conventional implementation like XOR of 3-digit values (manipulating values in the main memory) and creates a SAT solver equivalent for it. This is done by evaluating the truth table of the values after application of one such operation. \texttt{a} and \texttt{b} are differential words. \texttt{Rotr} rotates the given values to the right. Its number of rotations is defined in the parameter. By definition of \texttt{XOR3}, the fourth value ($\texttt{b}$) represents the result.
+Here \texttt{satstep} is the computational unit which uses the SAT solver to report whether a given differential characteristic is satisfiable or not. \texttt{SatGenerator} is a wrapper which takes a conventional implementation like XOR of 3-digit values (manipulating values in the main memory) and creates a SAT solver equivalent for it. This is done by evaluating the truth table of the values after application of one such operation. \texttt{a} and \texttt{b} are differential words. \texttt{Rotr} rotates the given values to the right. Its number of rotations is defined in the parameter. By definition of \texttt{XOR3}, the fourth value ($\texttt{b}$) represents the result.
 
 Every operation statically knows how many parameter it takes. The XOR3 operation takes three input parameters and one output parameter. The truth table is created once for every operation and determines which output value is generated for the given input. As such the truth table evaluation is a bottleneck in the framework due to its exponential behavior. However, a static implementation of the operation which directly adds the clauses can also be provided (thus omitting the \texttt{SatGenerator} wrapper).
 
@@ -82,7 +82,7 @@ The simple evaluation approach uses 2 boolean variables per bit condition. This 
   \item[Update BitCondition] The values of the bit conditions are known.
     \begin{description}
       \item[Set bit condition value] The clauses resulting from the bit condition value are added. These clauses were already discussed in the paper ``Linear propagation in Efficient Guess-and-Determine Attacks''~\cite[6]{Cry16} and illustrated in Table~\ref{tab:simple-eval-clauses} again. Some are them are written as XOR clauses, which are only supported by \cmsat{}. If the SAT solver does not provide XOR clauses, the SAT solver abstraction discussed in section~\ref{sec:satsolver-abstraction} provides a corresponding encoding to CNF.
-      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is valid.
+      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
     \end{description}
 \end{description}
 
@@ -121,7 +121,7 @@ The simple evaluation approach uses 2 boolean variables per bit condition. This 
 \subsubsection{Discussion}
 \label{sec:simple-evaluation-discussion}
 %
-This approach was implemented first, but has a major problem: Assuming the evaluated differential characteristic is valid, a more restrictive bit condition will be used by the automated search at one position. However for the next iteration the SAT solver has to be destroyed and the configuration must be built up again. This takes a long time. We can use the fact that the Initialization step stays the same, but the Update BitCondition step is different. And so we want to use an approach which runs the Initialization step only once and the Update BitCondition is run on every search iteration.
+This approach was implemented first, but has a major problem: Assuming the evaluated differential characteristic is satisfiable, a more restrictive bit condition will be used by the automated search at one position. However for the next iteration the SAT solver has to be destroyed and the configuration must be built up again. This takes a long time. We can use the fact that the Initialization step stays the same, but the Update BitCondition step is different. And so we want to use an approach which runs the Initialization step only once and the Update BitCondition is run on every search iteration.
 
 This approach was not put into practice for the automated search and so no performance statistics are available here.
 
@@ -212,7 +212,7 @@ gives us a boolean expression in CNF.
   \item[Update BitCondition] The values of the bit conditions are known.
     \begin{description}
       \item[Set bit condition value] The assumptions resulting from the bit condition value are created. They are given in Table~\ref{tab:simple-eval-clauses}.
-      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is valid.
+      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
     \end{description}
 \end{description}
 
@@ -280,7 +280,7 @@ The Exhaustive encoding consists of $17$ boolean variables per bit condition. Ex
   \item[Update BitCondition] The values of the bit conditions are known.
     \begin{description}
       \item[Set bit condition value] Given a bit condition $T$, the corresponding assumption $z_T$ is set to true.
-      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is valid.
+      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
     \end{description}
 \end{description}
 
@@ -330,7 +330,7 @@ The 9 variables are denoted as $z, z^*, z_A, z_B, z_C, z_D, z_E, z_x$ and $z_1$.
   \item[Update BitCondition] The values of the bit conditions are known.
     \begin{description}
       \item[Set bit condition value] The assumptions resulting from the bit condition value are created. They are given in Table~\ref{tab:reduced-encoding-assumptions}.
-      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is valid.
+      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
     \end{description}
 \end{description}
 
@@ -398,7 +398,7 @@ The 4 variables are denoted as $z_A, z_B, z_C$ and $z_D$. They exactly correspon
   \item[Update BitCondition] The values of the bit conditions are known.
     \begin{description}
       \item[Set bit condition value] The assumptions resulting from the bit condition value are created. They are given in Table~\ref{tab:dse-assumptions}.
-      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is valid.
+      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
     \end{description}
 \end{description}
 

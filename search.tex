@@ -126,7 +126,7 @@ Let's consider a single bitslice with 2 input arguments and 1 output argument. T
         A: 0 \\
         S: 1
       \end{diffchar}
-      \caption{valid}
+      \caption{SAT}
       \label{dc:xor1}
     \end{subfigure}%
     \begin{subfigure}[b]{0.23\textwidth}
@@ -135,7 +135,7 @@ Let's consider a single bitslice with 2 input arguments and 1 output argument. T
         A: 0 \\
         S: ?
       \end{diffchar}
-      \caption{valid}
+      \caption{SAT}
       \label{dc:xor2}
     \end{subfigure}%
     \begin{subfigure}[b]{0.23\textwidth}
@@ -144,7 +144,7 @@ Let's consider a single bitslice with 2 input arguments and 1 output argument. T
         A: 1010 \\
         S: 1011
       \end{diffchar}
-      \caption{valid}
+      \caption{SAT}
       \label{dc:xor3}
     \end{subfigure}%
     \begin{subfigure}[b]{0.23\textwidth}
@@ -153,10 +153,10 @@ Let's consider a single bitslice with 2 input arguments and 1 output argument. T
         A: 3xx0 \\
         S: x?x?
       \end{diffchar}
-      \caption{valid}
+      \caption{SAT}
       \label{dc:xor4}
     \end{subfigure}
-    \caption{Examples for valid differential characteristics (XOR operation).}
+    \caption{Examples for satisfiable differential characteristics (XOR operation).}
     \label{dc:xor-examples}
   \end{center}
 \end{figure}
@@ -167,18 +167,18 @@ Let's consider a single bitslice with 2 input arguments and 1 output argument. T
       A: 501 \\
       S: \textendash{}10
     \end{diffchar}
-    \caption{An invalid differential characteristic (XOR operation).}
+    \caption{An unsatisfiable differential characteristic (XOR operation).}
     \label{dc:xor-faulty}
   \end{center}
 \end{figure}
 %
-Figure~\ref{dc:xor-examples} shows examples for valid differential characteristics. If we apply the XOR operation on each bitslice, the output value does correspond to the given bit condition. Correspondence here means that any possible outcome of the function is part of the specified output argument. It is the hash algorithm's responsibility to define which arguments an operation is applied to. Here we assume a simple algorithm which applies XOR bitslice-by-bitslice.
+Figure~\ref{dc:xor-examples} shows examples for satisfiable differential characteristics. If we apply the XOR operation on each bitslice, the output value does correspond to the given bit condition. Correspondence here means that any possible outcome of the function is part of the specified output argument. It is the hash algorithm's responsibility to define which arguments an operation is applied to. Here we assume a simple algorithm which applies XOR bitslice-by-bitslice.
 
-In Figure~\ref{dc:xor1} a one as result in both instance is valid for the XOR operation. In Figure~\ref{dc:xor2} we also have a valid result, because \bc{?} is a superset of \bc{1}. Figure~\ref{dc:xor3} just illustrates the simultaneous application of the XOR operation to each bitslice of the differential characteristic. Figure~\ref{dc:xor4} provides more complex examples. For the second bitslice (from the right) the XOR operation applied to an input argument of equal values in both instances and an input argument with different values, the result will always be a difference between both instances. The third bitslice shows again a superset relation between \bc{?} and \bc{x}. In the fourth bitslice we also have to distinguish 4 cases (\bc{C} and \bc{3} can be 2 cases each) and if we evaluate the result, the bits in both instances will always be different.
+In Figure~\ref{dc:xor1} a one as result in both instance is satisfiable for the XOR operation. In Figure~\ref{dc:xor2} we also have a satisfiable result, because \bc{?} is a superset of \bc{1}. Figure~\ref{dc:xor3} just illustrates the simultaneous application of the XOR operation to each bitslice of the differential characteristic. Figure~\ref{dc:xor4} provides more complex examples. For the second bitslice (from the right) the XOR operation applied to an input argument of equal values in both instances and an input argument with different values, the result will always be a difference between both instances. The third bitslice shows again a superset relation between \bc{?} and \bc{x}. In the fourth bitslice we also have to distinguish 4 cases (\bc{C} and \bc{3} can be 2 cases each) and if we evaluate the result, the bits in both instances will always be different.
 
-A bit condition taken twice as input arguments to XOR is always \bc{0}. If a contradiction occurs in an input argument, the result is a contradiction. In Figure~\ref{dc:xor-faulty} an invalid differential characteristic is given. It is invalid, because some application of the XOR operation does not result in the specified bit condition; actually all applications will fail. The second bitslice is invalid, because if \bc{C} represents a 0 in the first instance and a 1 in the second instance, the application of XOR will return a 0 and 1 in each instance respectively which is not covered by the bit condition \bc{1}. The third bitslice has two input arguments which actually allows any possible result and relation between the values in each instance. Thus the bit condition \bc{-} is too strict.
+A bit condition taken twice as input arguments to XOR is always \bc{0}. If a contradiction occurs in an input argument, the result is a contradiction. In Figure~\ref{dc:xor-faulty} an unsatisfiable differential characteristic is given. It is unsatisfiable, because some application of the XOR operation does not result in the specified bit condition; actually all applications will fail. The second bitslice is unsatisfiable, because if \bc{C} represents a 0 in the first instance and a 1 in the second instance, the application of XOR will return a 0 and 1 in each instance respectively which is not covered by the bit condition \bc{1}. The third bitslice has two input arguments which actually allows any possible result and relation between the values in each instance. Thus the bit condition \bc{-} is too strict.
 
-Evaluating the validity of a differential characteristic is the main requirement to enable our automated search.
+Evaluating the satisfiability of a differential characteristic is the main requirement to enable our automated search.
 
 \section{\nltool}
 \label{sec:nltool}
@@ -189,7 +189,7 @@ Evaluating the validity of a differential characteristic is the main requirement
   \item[Initialization]
     At initialization the hash algorithm (to be used) is known and the structure of the differential characteristic can be retrieved. The value of any bit condition is not yet available.
   \item[Update BitCondition]
-    In the update step the values of the differential characteristic are provided and the final decision about validity of the characteristic can be made.
+    In the update step the values of the differential characteristic are provided and the final decision about satisfiability of the characteristic can be made.
 \end{description}
 
 Finding the best paths to derive new knowledge about the state is an open research topic. Differential paths are described in the master thesis ``Cryptanalysis of MD4'' by Martin Schläffer~\cite{Cry15} and an application of the tool for an attack is given by the paper ``Collision Attacks on the Reduced Dual-Stream Hash Function RIPEMD-128''~\cite{Cry08}.
