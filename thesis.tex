@@ -24,10 +24,12 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{rotating}
+\usepackage{xcolor}
 \addbibresource{thesis.bib}
 
 \setcounter{secnumdepth}{3}
 \setlength{\parskip}{\baselineskip}
+\definecolor{contr}{RGB}{180,40,0}
 
 % Other titles:
 %  1. SAT solvers in cryptanalysis
@@ -104,7 +106,10 @@ by another person, except where reference is made in the text.
 \noindent\uline{--- Lukas Prokop ---} \\[5pt]
 \phantom{---} Lukas Prokop \phantom{---}
 
+\begingroup
+\hypersetup{colorlinks=true,linktoc=all,linkcolor=contr}
 \tableofcontents
+\endgroup
 
 \begin{abstract}
   The NP-completeness of SAT has been proven in 1971 by Stephen Cook
@@ -142,6 +147,8 @@ by another person, except where reference is made in the text.
 \chapter{Future work}
 \label{chap:next}
 \input{next_work.tex}
+
+\hypersetup{colorlinks=true,linktoc=all,linkcolor=contr}
 
 \printbibliography
 \listoffigures

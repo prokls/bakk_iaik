@@ -1,3 +1,4 @@
+\newcommand{\myhref}[3][blue]{\href{#2}{\color{#1}{#3}}}%
 \makeatletter
 \def\@maketitle{%
   \newpage
@@ -12,7 +13,7 @@
       \lineskip .5em%
       \begin{tabular}[t]{c}%
         \@author \\
-        <\href{mailto:lukas.prokop@student.tugraz.at}{lukas.prokop@student.tugraz.at}> \\
+        <\href{mailto:lukas.prokop@student.tugraz.at}{\color{contr}{lukas.prokop@student.tugraz.at}}> \\
         \vspace{260pt} \\
         Advisors: Florian Mendel, Martin Schläffer \\[12pt]
         \includegraphics{img/iaik.pdf} \\[12pt]
