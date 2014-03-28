@@ -113,23 +113,3 @@ Having a boolean function we can always determine an equivalent \gls{cnf} or \gl
 It is important to point out that building the truth table takes $\mathcal{O}(2^n)$ for $n$ variables if constant runtime is assumed for the evaluation of the boolean function. This leads to a problem in our implementation. In general we don't know the functions to be used in advance, but require the equivalent \gls{cnf} for the \gls{sat} solver. In our implementation we generate the truth table for every function to be used to retrieve all outcomes.
 
 % TODO: I can't recall. Did Pawel provide some research here? Also see emails!
-
-\section{A SAT solver abstraction}
-\label{sec:satsolver-abstraction}
-%
-For the implementation we have developed a SAT solver interface to simplify exchange of the SAT solver and for easier debug output. When we had to debug a bug in our implementation, we exchanged the actual SAT solver object with a \texttt{DebugSatSolver} (verbose human-readable representation of the clauses), \texttt{DimacsSatSolver} (DIMACS output) or \texttt{CppSatSolver} instance (generates static C++ source code of a testcase which directly uses CMSAT without nltool).
-
-% Some C++ keywords are left out for brevity.
-\lstset{language={C++},caption={SAT solver abstraction interface}}
-\begin{lstlisting}
-  class ISatSolver {
-    void Assume(int assignment);
-    void AddClause(const std::initializer_list<int> lits);
-    void AddXor(const std::initializer_list<int> lits,
-      bool is_true = true);
-    int NewVar();
-    bool Solve();
-  }
-\end{lstlisting}
-
-The interface requires boolean variables to be requested before their first usage and boolean variables are represented as signed integers. Variables below 0 represent negated variables.

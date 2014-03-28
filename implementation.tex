@@ -81,7 +81,7 @@ The simple evaluation approach uses 2 boolean variables per bit condition. This 
     \end{description}
   \item[Update BitCondition] The values of the bit conditions are known.
     \begin{description}
-      \item[Set bit condition value] The clauses resulting from the bit condition value are added. These clauses were already discussed in the paper ``Linear propagation in Efficient Guess-and-Determine Attacks''~\cite[6]{Cry16} and illustrated in Table~\ref{tab:simple-eval-clauses} again. Some are them are written as XOR clauses, which are only supported by \cmsat{}. If the SAT solver does not provide XOR clauses, the SAT solver abstraction discussed in section~\ref{sec:satsolver-abstraction} provides a corresponding encoding to CNF.
+      \item[Set bit condition value] The clauses resulting from the bit condition value are added. These clauses were already discussed in the paper ``Linear propagation in Efficient Guess-and-Determine Attacks''~\cite[6]{Cry16} and illustrated in Table~\ref{tab:simple-eval-clauses} again. Some are them are written as XOR clauses, which are only supported by \cmsat{}. If the SAT solver does not provide XOR clauses, you can rewrite them to CNF clauses with worst-case exponential runtime.
       \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
     \end{description}
 \end{description}
@@ -386,6 +386,8 @@ In our SHA-256 testcase it reached up to 177 iterations per second.
 \label{sec:encoding:dse-algorithm}
 %
 The 4 variables are denoted as $z_A, z_B, z_C$ and $z_D$. They exactly correspond to one of the cases $\{(0, 0), (0, 1), (1, 0), (1, 1)\}$ for the bits in the evaluation instances. $z_A$ corresponds to \bc{0}, $z_B$ is the same as \bc{n}, $z_C$ is \bc{u} and $z_D$ equals to \bc{1}. We require that only one of the cases is met in the Setup Encoding represented by 7 clauses.
+
+This encoding differs from the other encoding in a sense that the Initialization is very much different and takes up more time whereas the small number of variables is expected to outweigh this performance problem in the Initialization.
 %
 \begin{description}
   \item[Initialization] Overlapping bits and the number of bit conditions are known.
