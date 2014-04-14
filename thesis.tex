@@ -24,6 +24,7 @@
 \usepackage{subcaption}
 \usepackage{rotating}
 \usepackage{xcolor}
+\usepackage[ruled,vlined]{algorithm2e}
 \addbibresource{thesis.bib}
 
 \setcounter{secnumdepth}{3}
@@ -147,9 +148,15 @@ by another person, except where reference is made in the text.
 \label{chap:next}
 \input{next_work.tex}
 
+\appendix
+\chapter{CNF transformations for boolean equations}
+\label{appendix:cnf}
+\input{cnf_transformations.tex}
+
 \hypersetup{colorlinks=true,linktoc=all,linkcolor=contr}
 
 \printbibliography
+\listofalgorithms
 \listoffigures
 \listoftables
 \printindex
