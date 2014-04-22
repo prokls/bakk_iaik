@@ -479,11 +479,11 @@ This encoding differs from the other encoding in a sense that the Initialization
 \begin{table}[p]
   \begin{center}
     \begin{alignat*}{4}
-      (z_A      & \oplus    z_B & & \oplus    z_C & & \oplus    z_D & & )\, \land \\
-      (z_A      & \lor \neg z_B & & \lor \neg z_C & & \lor \neg z_D & & )\, \land \\
-      (\neg z_A & \lor      z_B & & \lor \neg z_C & & \lor \neg z_D & & )\, \land \\
-      (\neg z_A & \lor \neg z_B & & \lor      z_C & & \lor \neg z_D & & )\, \land \\
-      (\neg z_A & \lor \neg z_B)& & \lor \neg z_C & & \lor      z_D & & ) \\
+      (z_0      & \oplus    z_n & & \oplus    z_u & & \oplus    z_1 & & )\, \land \\
+      (z_0      & \lor \neg z_n & & \lor \neg z_u & & \lor \neg z_1 & & )\, \land \\
+      (\neg z_0 & \lor      z_n & & \lor \neg z_u & & \lor \neg z_1 & & )\, \land \\
+      (\neg z_0 & \lor \neg z_n & & \lor      z_u & & \lor \neg z_1 & & )\, \land \\
+      (\neg z_0 & \lor \neg z_n)& & \lor \neg z_u & & \lor      z_1 & & ) \\
     \end{alignat*}
     \caption{Setup Encoding clauses to ensure only one variable is set to true (with 1 XOR clauses) (can be written as 7 CNF clauses).}
     \label{tab:dse-clauses}
@@ -495,21 +495,21 @@ This encoding differs from the other encoding in a sense that the Initialization
     \begin{tabular}{cll}
       bit condition  & Set bit condition value \\
     \hline
-      \bc{\#}        & $z_A = 0, z_B = 0, z_C = 0, z_D = 0$ \\
-      \bc{0}         & $z_A = 1$ \\
-      \bc{u}         & $z_C = 1$ \\
-      \bc{3}         & $z_B = 0, z_D = 0$ \\
-      \bc{n}         & $z_B = 1$ \\
-      \bc{5}         & $z_C = 0, z_D = 0$ \\
-      \bc{x}         & $z_A = 0, z_D = 0$ \\
-      \bc{7}         & $z_D = 0$ \\
-      \bc{1}         & $z_D = 1$ \\
-      \bc{-}         & $z_B = 0, z_C = 0$ \\
-      \bc{A}         & $z_A = 0, z_D = 0$ \\
-      \bc{B}         & $z_B = 0$ \\
-      \bc{C}         & $z_A = 0, z_C = 0$ \\
-      \bc{D}         & $z_C = 0$ \\
-      \bc{E}         & $z_A = 0$ \\
+      \bc{\#}        & $z_0 = 0, z_n = 0, z_u = 0, z_1 = 0$ \\
+      \bc{0}         & $z_0 = 1$ \\
+      \bc{u}         & $z_u = 1$ \\
+      \bc{3}         & $z_n = 0, z_1 = 0$ \\
+      \bc{n}         & $z_n = 1$ \\
+      \bc{5}         & $z_u = 0, z_1 = 0$ \\
+      \bc{x}         & $z_0 = 0, z_1 = 0$ \\
+      \bc{7}         & $z_1 = 0$ \\
+      \bc{1}         & $z_1 = 1$ \\
+      \bc{-}         & $z_n = 0, z_u = 0$ \\
+      \bc{A}         & $z_0 = 0, z_1 = 0$ \\
+      \bc{B}         & $z_n = 0$ \\
+      \bc{C}         & $z_0 = 0, z_u = 0$ \\
+      \bc{D}         & $z_u = 0$ \\
+      \bc{E}         & $z_0 = 0$ \\
       \bc{?}         & 
     \end{tabular}
     \caption{Assumptions for the Differential State encoding.}

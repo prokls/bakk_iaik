@@ -40,14 +40,6 @@ Gaëtan Leurent, Nicky Mouha and Bart Preneel~\cite{Sat10}\cite{Sat11} use the s
 \label{sec:differential}
 \index{Differential cryptanalysis}
 %
-\begin{figure}[t]
-  \begin{center}
-    \includegraphics{img/diff_cryptanalysis.pdf}
-    \caption{Two evaluation instances in differential cryptanalysis and their difference.}
-    \label{fig:diff_cryptanalysis}
-  \end{center}
-\end{figure}
-
 \index{Evaluation instances}
 In \emph{differential cryptanalysis} we consider the difference between \emph{evaluation instances}. Assuming a hash function $f$ maps some input $M$ (derived from two parameters $A$ and $B$) to some output $C$, the difference between those instances in every step of the evaluation of the function $f$ is of interest for us. In Figure~\ref{fig:diff_cryptanalysis} an example with two instances $M$ and $M^*$ is illustrated.
 
@@ -56,6 +48,14 @@ Xiaoyun Wang successfully reduced the complexity of MD4, the original RIPEMD des
 In our thesis we want to discuss how differential characteristics can be encoded in boolean algebra. Fabio Massacci was the first to apply SAT research to cryptographic problems and coined the name \emph{logical cryptanalysis}. Our implementation specifically combines the fields of differential cryptanalysis and logical cryptanalysis.
 
 In all following sections we always assume \emph{two} existing evaluation instances.
+%
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics{img/diff_cryptanalysis.pdf}
+    \caption{Two evaluation instances in differential cryptanalysis and their difference.}
+    \label{fig:diff_cryptanalysis}
+  \end{center}
+\end{figure}
 
 \subsection{Differential characteristics}
 \label{sec:differential-characteristic}
@@ -73,7 +73,6 @@ There are also two special bit conditions. The bit condition \bc{?} is called th
 
 We will use this notation throughout the document to denote the difference between bits in each evaluation instance. The superset relation between the bit conditions can be retrieved from the Galois lattice given in Figure~\ref{fig:bitconditions-lattice}.
 
-% TODO: urgh, \yes and \no must not be bold. Or whatever to make the table beautiful
 \begin{table}[p]
  \begin{center}
   \begin{tabular}{ccccc}
@@ -141,7 +140,7 @@ As we can observe in this exhaustive list, the left-hand side can always be desc
 
 Figure~\ref{dc:xor-examples} shows examples for satisfiable differential characteristics. If we apply the XOR operation on each bitslice, the output value does correspond to the given bit condition. Correspondence here means that any possible outcome of the function is part of the specified output argument.
 %
-\begin{figure}[b]
+\begin{figure}[t]
   \begin{center}
     \begin{subfigure}[b]{0.23\textwidth}
       \begin{diffchar}
@@ -183,7 +182,7 @@ Figure~\ref{dc:xor-examples} shows examples for satisfiable differential charact
     \label{dc:xor-examples}
   \end{center}
 \end{figure}
-\begin{figure}[b]
+\begin{figure}[t]
   \begin{center}
     \begin{diffchar}
       A: BC0 \\
