@@ -65,7 +65,7 @@ In the following we want to describe a notation introduced by Christophe De Cann
 \index{Bit condition}
 This notation allows us to represent the difference between two bits. In general we have to distinguish four cases, but we also want to model uncertainty meaning that for example two of these four cases are possible. Table~\ref{tab:bitconditions} lists all possible bit conditions.
 
-Let's consider bit condition symbol ``\bc{C}''. If the difference between two bits is specified with \bc{C}, 2 out of 4 cases are allowed for the two bits\footnote{Recognize that two configurations in Table~\ref{tab:bitconditions} are checked for the symbol \bc{C}.}. Either the first bit is zero or one, but the second bit has to be one. Another popular example are the difference bit conditions \bc{x} and \bc{-}. If the difference is specified with \bc{x}, the two bits must have different values. In case of a bit condition \bc{-} the values have to be equivalent.
+Let's consider bit condition symbol ``\bc{C}''. If the difference between two bits is specified with \bc{C}, 2 out of 4 cases are allowed for the two bits\footnote{Recognize that two configurations in Table~\ref{tab:bitconditions} are checked for the symbol \bc{C}.}. Either the first bit is zero or one, but the second bit has to be one. Another popular example are the difference bit conditions \bc{x} and \bc{\textendash}. If the difference is specified with \bc{x}, the two bits must have different values. In case of a bit condition \bc{\textendash} the values have to be equivalent.
 
 \index{Free bit condition}
 \index{Contradiction}
@@ -118,11 +118,30 @@ In conclusion we introduced a notation to describe which bit configurations for 
 \section{Evaluating differential characteristics}
 \label{sec:diffchar-examples}
 %
-Several popular hash algorithms are built using the ARX architecture\footnote{The MD5, SHA-1 and SHA-2 hash algorithms follow the ARX design principle.}. One of the letters in the name refers to the XOR operation taking two or more arguments. The XOR operator returns true iff the number of arguments with value true is odd.
+Several popular hash algorithms are built using the ARX architecture\footnote{The MD5, SHA-1 and SHA-2 hash algorithms follow the ARX design principle.}. One of the letters in the name refers to the XOR operation taking two or more arguments. The XOR operator returns true iff the number of arguments with value true is odd. The hash algorithm specification states which arguments an operation is applied to.
 
-Let's consider a single bitslice with 2 input arguments and 1 output argument. The first input argument is \bc{1} and the second input argument is \bc{0}. It's important that \bc{1} and \bc{0} are bit conditions and therefore describe the state of 2 instances. For these particular bit conditions the values of both instances are the same: 1 and 0 respectively.
+As an example we assume a simple algorithm which applies XOR bitslice-by-bitslice. Therefore we have 3 differential words with 2 words as input arguments and 1 word as output. We take a simple example:
+\begin{center}
+  \begin{diffchar}
+    A: 1111 \\
+    A: 0010 \\
+    S: 1101
+  \end{diffchar}
+\end{center}
+XOR is defined by the formula $S = A_0 \oplus A_1$. We evaluate the first (right-most) bitslice. Substituting the variables of the formula with the values leads to a valid equation which shows that no contradiction was found. We consecutively apply the formula to the other bitslices. All four bitslices define a valid equation, which shows that this differential characteristic is satisfied. Be aware that 0 and 1 describe bit conditions and therefore describe the state of 2 evaluation instances, but for this particular bit conditions the values in both instances are the same.
+
+Let's take the second bitslice from Figure~\ref{dc:xor4}. In this case the equation $x = x \oplus \mbox{--}$ is given. To evaluate this equation, we have to iterate over all possible bit configurations. We denote a one as first bit and zero as second bit as $(1, 0)$. Given $(1, 0) = (0, 1) \oplus (0, 0)$ the equation is valid, because $1 = 0 \oplus 0$ and $0 = 1 \oplus 0$ are valid statements. We list all possible configurations and compute the left side as result of the right-hand side formula:
+\begin{align*}
+    (0, 1) &= (0, 1) \oplus (0, 0) \\
+    (1, 0) &= (1, 0) \oplus (0, 0) \\
+    (1, 0) &= (0, 1) \oplus (1, 1) \\
+    (0, 1) &= (1, 0) \oplus (1, 1)
+\end{align*}
+As we can observe in this exhaustive list, the left-hand side can always be described with a difference between the two bits; thus bit condition \bc{x}. Whenever this derived bit condition is a superset of the bit condition in the output argument, satisfiability is given.
+
+Figure~\ref{dc:xor-examples} shows examples for satisfiable differential characteristics. If we apply the XOR operation on each bitslice, the output value does correspond to the given bit condition. Correspondence here means that any possible outcome of the function is part of the specified output argument.
 %
-\begin{figure}[t]
+\begin{figure}[b]
   \begin{center}
     \begin{subfigure}[b]{0.23\textwidth}
       \begin{diffchar}
@@ -164,7 +183,7 @@ Let's consider a single bitslice with 2 input arguments and 1 output argument. T
     \label{dc:xor-examples}
   \end{center}
 \end{figure}
-\begin{figure}[t]
+\begin{figure}[b]
   \begin{center}
     \begin{diffchar}
       A: BC0 \\
@@ -175,8 +194,6 @@ Let's consider a single bitslice with 2 input arguments and 1 output argument. T
     \label{dc:xor-faulty}
   \end{center}
 \end{figure}
-%
-Figure~\ref{dc:xor-examples} shows examples for satisfiable differential characteristics. If we apply the XOR operation on each bitslice, the output value does correspond to the given bit condition. Correspondence here means that any possible outcome of the function is part of the specified output argument. It is the hash algorithm's responsibility to define which arguments an operation is applied to. Here we assume a simple algorithm which applies XOR bitslice-by-bitslice.
 
 In Figure~\ref{dc:xor1} a one as result in both instance is satisfiable for the XOR operation. In Figure~\ref{dc:xor2} we also have a satisfiable result, because \bc{?} is a superset of \bc{1}. Figure~\ref{dc:xor3} just illustrates the simultaneous application of the XOR operation to each bitslice of the differential characteristic. Figure~\ref{dc:xor4} provides more complex examples. For the second bitslice (from the right) the XOR operation applied to an input argument of equal values in both instances and an input argument with different values, the result will always be a difference between both instances. The third bitslice shows again a superset relation between \bc{?} and \bc{x}. In the fourth bitslice we also have to distinguish 4 cases (\bc{C} and \bc{3} can be 2 cases each) and if we evaluate the result, the bits in both instances will always be different.
 

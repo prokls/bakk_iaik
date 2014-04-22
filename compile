@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-TEXLIVE=~/.texlive/bin/x86_64-linux/
+TEXLIVE=/usr/local/texlive/bin/x86_64-linux/
 
 rm thesis.{aux,bbl,bcf,blg,glo,idx,ilg,ind,loa,log,out,run.xml,toc,xdy}
 rm thesis-blx.bib
