@@ -62,14 +62,16 @@ In all following sections we always assume \emph{two} existing evaluation instan
 %
 In the following we want to describe a notation introduced by Christophe De Cannière and Christian Rechberger in their paper ``Finding SHA1-Characteristics: General Results and Applications''~\cite{Cry01}.
 
-With our notation we want to represent the difference of single bits in those instances. In general 4 ($= 2^2$) cases must be distinguished, because of 2 values for 2 bits.
-
-But in differentical cryptanalysis we often do not have enough information about the bits. We need to model insecurity. For example if the first bit is a zero, but the value of the second bit is unknown, 2 cases are possible ($0$ and $0$/$1$ for the first and second bit respectively). If we want to model ``the bits are different'' 2 cases are possible again. However if no knowledge about the bits' state is available, we have to consider all 4 cases.
-
 \index{Bit condition}
+This notation allows us to represent the difference between two bits. In general we have to distinguish four cases, but we also want to model uncertainty meaning that for example two of these four cases are possible. Table~\ref{tab:bitconditions} lists all possible bit conditions.
+
+Let's consider bit condition symbol ``\bc{C}''. If the difference between two bits is specified with \bc{C}, 2 out of 4 cases are allowed for the two bits\footnote{Recognize that two configurations in Table~\ref{tab:bitconditions} are checked for the symbol \bc{C}.}. Either the first bit is zero or one, but the second bit has to be one. Another popular example are the difference bit conditions \bc{x} and \bc{-}. If the difference is specified with \bc{x}, the two bits must have different values. In case of a bit condition \bc{-} the values have to be equivalent.
+
 \index{Free bit condition}
 \index{Contradiction}
-For the general notation we have to scale this picture. We have one bit in each evaluation instance and some of four different states are possible. This gives us 16 cases to distinguish: 1 case where no bit configuration is possible (the so-called \emph{contradiction}), 4 cases where only one configuration is possible, 6 cases with 2 configurations, 4 cases with 3 configurations and 1 configuration where every configuration is possible (the so-called \emph{free condition}). These cases are listed in Table~\ref{tab:bitconditions}. The most-left column specifies the so-called \emph{bit condition} representing a differential value. The superset relation between the bit conditions can be retrieved from the Galois lattice given in Figure~\ref{fig:bitconditions-lattice}.
+There are also two special bit conditions. The bit condition \bc{?} is called the \emph{free bit condition}, because nothing can be said about the state of any bit. The bit condition \bc{\#} is called \emph{contradiction} because no state is possible for both bits which immediately leads to a detected contradiction within the differential system.
+
+We will use this notation throughout the document to denote the difference between bits in each evaluation instance. The superset relation between the bit conditions can be retrieved from the Galois lattice given in Figure~\ref{fig:bitconditions-lattice}.
 
 % TODO: urgh, \yes and \no must not be bold. Or whatever to make the table beautiful
 \begin{table}[p]
