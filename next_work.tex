@@ -1,4 +1,4 @@
-\section{Results and comparison}
+\section{Evaluation}
 \label{sec:results}
 %
 % REMARK. testcases are run for about 900 seconds. iter/sec was taken from the last entry
@@ -47,13 +47,13 @@
 
 Simple evaluation obviously has the worst performance. Destroying and building the SAT solver takes a lot of time and slows down the automated search. The advantage of this approach comes into play, when the evaluated differential characteristic is very large. However this size is not within the scope for SAT-based attacks of hash algorithms.
 
-The approaches for Activation literals, Reduced encoding and Differential state encoding all seem interesting and perform very good. Further study is advised to improve the speed by studying the recurring structures due to assigned bit conditions.
+Be aware that the comparison given in Table~\ref{tab:encoding-cmp} only uses iterations per second as relative performance measure where iteration is one modification and evaluation of the differential characteristic within the automated search. An attack of complete hash algorithms such as SHA-256 is computationally infeasible with this implementation and no absolute measures like the number of feasible steps are discussed.
 
-Be aware that this comparison only uses iterations per second as relative performance measure. An attack of complete hash algorithm is computationally infeasible with this implementation and no absolute measures like the number of feasible steps are discussed.
+The approaches for Activation literals, Reduced encoding and Differential state encoding all seem interesting and perform very good. Further study is advised to improve the speed by studying the recurring structures due to assigned bit conditions.
 
 \section{Propagation}
 %
-The propagation in the automated search improved previous implementation, because overlapping bits are detected and considered. Therefore the implementation scales better for larger sizes, because invalid paths are eliminated faster. Figure~\ref{fig:sat-propagation} can directly be compared to the propagation diagrams given in~\cite{Cry16}.
+The propagation in the automated search improved previous implementations, because overlapping bits are detected and considered. Therefore the implementation scales better for larger sizes, because invalid paths are eliminated faster. Figure~\ref{fig:sat-propagation} can directly be compared to the propagation diagrams given in~\cite{Cry16}.
 %
 \begin{figure}[t]
  \begin{center}
@@ -81,4 +81,4 @@ The propagation in the automated search improved previous implementation, becaus
 
 \section{Conclusion}
 %
-We discussed three encodings to evaluate the satisfiability of differential characteristics. The third encoding actually defines a set of three independent approaches which were also discussed. We evaluated their performance by a relative measure of iterations per second. This measure ranges between 0 and 23. Simple Evaluation has such a bad performance that a value of $0$ was measured. The Activation Literal approach discussed in section~\ref{sec:encoding:activation-literals} performs the best way. As such this encoding is recommended to encode problems in differential cryptanalysis.
+We discussed three encodings to evaluate the satisfiability of differential characteristics. The third encoding actually defines a set of three independent approaches which were also discussed. We evaluated their performance by a relative measure of iterations per second. This measure ranges between 0 and 23. Simple Evaluation  has such a bad performance that a value of $0$ was measured. The Activation Literal approach discussed in section~\ref{sec:encoding:activation-literals} performs the best way with 23~iters/sec compared to Reduced encoding (11~iters/sec) and Differential State Encoding (7~iters/sec). As such this encoding is recommended to encode problems in differential cryptanalysis.
