@@ -10,6 +10,7 @@
 \usepackage{pifont}
 %\usepackage{lmodern}
 \usepackage{baskervald}
+\usepackage{float}
 
 %\usepackage{libertineRoman}  % TODO: remove
 \usepackage{graphicx}
@@ -81,6 +82,9 @@
 \newacronym{cnf}{CNF}{Conjunctive Normal Form}
 \newacronym{dnf}{DNF}{Disjunctive Normal Form}
 \newacronym{csp}{CSP}{Constraint Programming}
+
+\floatstyle{plaintop}
+\restylefloat{table}
 
 \makeatletter
 \def\UL@putbox{\ifx\UL@start\@empty \else % not inner
