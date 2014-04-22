@@ -22,10 +22,11 @@ specification. This way we are searching for collisions within the hash
 algorithm starting with an intermediate state.
 
 Our implementation is an extension of an existing framework for differential
-cryptanalysis. We therefore do not represent the state of an hash algorithm
+cryptanalysis. We therefore do not represent the state of a hash algorithm
 evaluation directly, but rather the difference between two instances evaluating
 a hash algorithm. Hopefully each instance will end up with different input data
-but the same hash value.
+but results in the same hash value.
 
-We introduce three encodings to represent the differential state in boolean
-algebra to build a bridge between SAT solving and hash algorithm cryptanalysis.
+Additionally we introduce three encodings to represent the differential state
+in boolean algebra to build a bridge between SAT solving and hash algorithm
+cryptanalysis.
