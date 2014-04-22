@@ -1,0 +1,18 @@
+Table~\ref{tab:cnf-transformations} lists CNF transformations. The encodings mentioned in this document were described with general boolean algebra, but SAT solvers restrict the input to be in conjunctive normal form. \cmsat{} also allows us to XOR clauses. We provide only shorter XOR clauses; others are omitted. The table lists transformations to achieve CNF.
+
+\begin{sidewaystable}
+  \begin{center}
+    \begin{tabular}{ccc}
+      boolean expression   & CNF and XOR clauses & CNF clauses \\
+     \hline
+      $a = b$              & $\neg (a \oplus b)$ & $(a \lor \neg b) \land (\neg a \lor b)$ \\
+      $a \oplus b$         & $a \oplus b$        & $(a \lor b) \land (\neg a \lor \neg b)$ \\
+      $a = (b \land c)$    &                     & $(a \lor \neg b \lor \neg c) \land (\neg a \lor b) \land (\neg a \lor c)$ \\
+      $a = (b \lor c)$     &                     & $(\neg \lor b \lor c) \land (a \lor \neg b) \land (a \lor \neg c)$ \\
+      $a = (b \oplus c)$   &                     & $(\neg a \lor b \lor c) \land (a \lor \neg b \lor c) \land (a \lor b \lor b \neg c) \land (\neg a \lor \neg b \lor \neg c)$ \\
+      $a = (b \implies c)$ &                     & $(a \lor b \lor c) \land (\neg a \lor \neg b \lor c) \land (a \lor b \lor \neg c) \land (a \lor \neg b \lor \neg c)$ \\
+    \end{tabular}
+    \caption{CNF transformations.}
+    \label{tab:cnf-transformations}
+  \end{center}
+\end{sidewaystable}
