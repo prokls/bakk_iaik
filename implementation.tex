@@ -67,17 +67,17 @@ The simple evaluation approach uses 2 boolean variables per bit condition. This 
 \label{sec:simple-evaluation-algorithm}
 %
 \begin{description}
-  \item[Initialization] Overlapping bits and the number of bit conditions are known.
+  \item[Initialization.] Overlapping bits and the number of bit conditions are known.
     \begin{description}
-      \item[Detect Overlapping Bits] Iterate over all bit conditions and recognize overlapping bits (see section~\ref{sec:automated-search}). Store all their indices for future reference.
-      \item[Introduce new bit conditions] Define the number of bit conditions needed and their position. A bit condition gets skipped, if this is not the first reference to an overlapping bit.
-      \item[Setup Encoding] $2$ boolean variables per bit condition are requested from the SAT solver.
-      \item[Apply function to bitslices] Add all clauses which result from the function definition applied to this differential characteristic.
+      \item[Detect Overlapping Bits.] Iterate over all bit conditions and recognize overlapping bits (see section~\ref{sec:automated-search}). Store all their indices for future reference.
+      \item[Introduce new bit conditions.] Define the number of bit conditions needed and their position. A bit condition gets skipped, if this is not the first reference to an overlapping bit.
+      \item[Setup Encoding.] $2$ boolean variables per bit condition are requested from the SAT solver.
+      \item[Apply function to bitslices.] Add all clauses which result from the function definition applied to this differential characteristic.
     \end{description}
-  \item[Update BitCondition] The values of the bit conditions are known.
+  \item[Update BitCondition.] The values of the bit conditions are known.
     \begin{description}
-      \item[Set bit condition value] The clauses resulting from the bit condition value are added. These clauses were already discussed in the paper ``Linear propagation in Efficient Guess-and-Determine Attacks''~\cite[6]{Cry16} and repeated in Table~\ref{tab:simple-eval-clauses}. Some are them are written as XOR clauses, which are only supported by \cmsat{} 2.x and 4.x. If the SAT solver does not provide XOR clauses, you can rewrite them to CNF clauses. Appendix~\ref{appendix:cnf} lists CNF compatible equivalences for the boolean expression.
-      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
+      \item[Set bit condition value.] The clauses resulting from the bit condition value are added. These clauses were already discussed in the paper ``Linear propagation in Efficient Guess-and-Determine Attacks''~\cite[6]{Cry16} and repeated in Table~\ref{tab:simple-eval-clauses}. Some are them are written as XOR clauses, which are only supported by \cmsat{} 2.x and 4.x. If the SAT solver does not provide XOR clauses, you can rewrite them to CNF clauses. Appendix~\ref{appendix:cnf} lists CNF compatible equivalences for the boolean expression.
+      \item[Run SAT solver.] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
     \end{description}
 \end{description}
 
@@ -240,17 +240,17 @@ gives us a boolean expression in CNF.
 \label{sec:activation-literals-algorithm}
 %
 \begin{description}
-  \item[Initialization] Overlapping bits and the number of bit conditions are known.
+  \item[Initialization.] Overlapping bits and the number of bit conditions are known.
     \begin{description}
-      \item[Detect Overlapping Bits] Iterate over all bit conditions and recognize overlapping bits (see section~\ref{sec:automated-search}). Store all their indices for future reference.
-      \item[Introduce new bit conditions] Define the number of bit conditions needed and their position. A bit condition gets skipped, if this is not the first reference to an overlapping bit.
-      \item[Setup Encoding] $7$ boolean variables per bit condition are requested from the SAT solver. The clauses given in Table~\ref{tab:activation-literals-clauses} are added.
-      \item[Apply function to bitslices] Add all clauses which result from the function definition applied to this differential characteristic.
+      \item[Detect Overlapping Bits.] Iterate over all bit conditions and recognize overlapping bits (see section~\ref{sec:automated-search}). Store all their indices for future reference.
+      \item[Introduce new bit conditions.] Define the number of bit conditions needed and their position. A bit condition gets skipped, if this is not the first reference to an overlapping bit.
+      \item[Setup Encoding.] $7$ boolean variables per bit condition are requested from the SAT solver. The clauses given in Table~\ref{tab:activation-literals-clauses} are added.
+      \item[Apply function to bitslices.] Add all clauses which result from the function definition applied to this differential characteristic.
     \end{description}
-  \item[Update BitCondition] The values of the bit conditions are known.
+  \item[Update BitCondition.] The values of the bit conditions are known.
     \begin{description}
-      \item[Set bit condition value] The assumptions resulting from the bit condition value are set. They are given in Table~\ref{tab:activation-literals-assumptions}.
-      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
+      \item[Set bit condition value.] The assumptions resulting from the bit condition value are set. They are given in Table~\ref{tab:activation-literals-assumptions}.
+      \item[Run SAT solver.] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
     \end{description}
 \end{description}
 
@@ -326,17 +326,17 @@ The Exhaustive encoding consists of $17$ boolean variables per bit condition. Ex
 \label{sec:exhaustive-encoding-algorithm}
 %
 \begin{description}
-  \item[Initialization] Overlapping bits and the number of bit conditions are known.
+  \item[Initialization.] Overlapping bits and the number of bit conditions are known.
     \begin{description}
-      \item[Detect Overlapping Bits] Iterate over all bit conditions and recognize overlapping bits (see section~\ref{sec:automated-search}). Store all their indices for future reference.
-      \item[Introduce new bit conditions] Define the number of bit conditions needed and their position. A bit condition gets skipped, if this is not the first reference to an overlapping bit.
-      \item[Setup Encoding] $17$ boolean variables per bit condition are requested from the SAT solver. The clauses given in Table~\ref{tab:exhaustive-encoding-clauses} are added. They correspond exactly to the expressions in Table~\ref{tab:simple-eval-clauses} but define an equivalence relation with an assumption variable $z_{\text{bit condition}}$.
-      \item[Apply function to bitslices] Add all clauses which result from the function definition applied to this differential characteristic.
+      \item[Detect Overlapping Bits.] Iterate over all bit conditions and recognize overlapping bits (see section~\ref{sec:automated-search}). Store all their indices for future reference.
+      \item[Introduce new bit conditions.] Define the number of bit conditions needed and their position. A bit condition gets skipped, if this is not the first reference to an overlapping bit.
+      \item[Setup Encoding.] $17$ boolean variables per bit condition are requested from the SAT solver. The clauses given in Table~\ref{tab:exhaustive-encoding-clauses} are added. They correspond exactly to the expressions in Table~\ref{tab:simple-eval-clauses} but define an equivalence relation with an assumption variable $z_{\text{bit condition}}$.
+      \item[Apply function to bitslices.] Add all clauses which result from the function definition applied to this differential characteristic.
     \end{description}
-  \item[Update BitCondition] The values of the bit conditions are known.
+  \item[Update BitCondition.] The values of the bit conditions are known.
     \begin{description}
-      \item[Set bit condition value] Given a bit condition $T$, the corresponding assumption $z_T$ is set to true. For the free variable nothing is set true.
-      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
+      \item[Set bit condition value.] Given a bit condition $T$, the corresponding assumption $z_T$ is set to true. For the free variable nothing is set true.
+      \item[Run SAT solver.] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
     \end{description}
 \end{description}
 
@@ -387,17 +387,17 @@ The following approach was initially proposed by Martin Schläffer. It takes $9$
 \label{sec:reduced-encoding-algorithm}
 %
 \begin{description}
-  \item[Initialization] Overlapping bits and the number of bit conditions are known.
+  \item[Initialization.] Overlapping bits and the number of bit conditions are known.
     \begin{description}
-      \item[Detect Overlapping Bits] Iterate over all bit conditions and recognize overlapping bits (see section~\ref{sec:automated-search}). Store all their indices for future reference.
-      \item[Introduce new bit conditions] Define the number of bit conditions needed and their position. A bit condition gets skipped, if this is not the first reference to an overlapping bit.
-      \item[Setup Encoding] $9$ boolean variables per bit condition are requested from the SAT solver. The clauses given in Table~\ref{tab:reduced-encoding-clauses} are added.
-      \item[Apply function to bitslices] Add all clauses which result from the function definition applied to this differential characteristic.
+      \item[Detect Overlapping Bits.] Iterate over all bit conditions and recognize overlapping bits (see section~\ref{sec:automated-search}). Store all their indices for future reference.
+      \item[Introduce new bit conditions.] Define the number of bit conditions needed and their position. A bit condition gets skipped, if this is not the first reference to an overlapping bit.
+      \item[Setup Encoding.] $9$ boolean variables per bit condition are requested from the SAT solver. The clauses given in Table~\ref{tab:reduced-encoding-clauses} are added.
+      \item[Apply function to bitslices.] Add all clauses which result from the function definition applied to this differential characteristic.
     \end{description}
-  \item[Update BitCondition] The values of the bit conditions are known.
+  \item[Update BitCondition.] The values of the bit conditions are known.
     \begin{description}
-      \item[Set bit condition value] The assumptions resulting from the bit condition value are set. They are given in Table~\ref{tab:reduced-encoding-assumptions}.
-      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
+      \item[Set bit condition value.] The assumptions resulting from the bit condition value are set. They are given in Table~\ref{tab:reduced-encoding-assumptions}.
+      \item[Run SAT solver.] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
     \end{description}
 \end{description}
 
@@ -462,17 +462,17 @@ The 4 variables are denoted as $z_0, z_n, z_u$ and $z_1$. They exactly correspon
 This encoding differs from the other encoding in a sense that the Initialization is very much different and takes up more time whereas the small number of variables is expected to outweigh this performance problem in the Initialization.
 %
 \begin{description}
-  \item[Initialization] Overlapping bits and the number of bit conditions are known.
+  \item[Initialization.] Overlapping bits and the number of bit conditions are known.
     \begin{description}
-      \item[Detect Overlapping Bits] Iterate over all bit conditions and store overlapping bit conditions.
-      \item[Introduce new bit conditions] Define the number of bit conditions needed and their position. A bit condition gets skipped, if this is not the first reference to an overlapping bit.
-      \item[Setup Encoding] $4$ boolean variables per bit condition are requested from the SAT solver. We ensure that only one the four boolean variables becomes true. Table~\ref{tab:dse-clauses} lists the clauses.
-      \item[Apply function to bitslices] See Algorithm~\ref{algo:dse-function}.
+      \item[Detect Overlapping Bits.] Iterate over all bit conditions and store overlapping bit conditions.
+      \item[Introduce new bit conditions.] Define the number of bit conditions needed and their position. A bit condition gets skipped, if this is not the first reference to an overlapping bit.
+      \item[Setup Encoding.] $4$ boolean variables per bit condition are requested from the SAT solver. We ensure that only one the four boolean variables becomes true. Table~\ref{tab:dse-clauses} lists the clauses.
+      \item[Apply function to bitslices.] See Algorithm~\ref{algo:dse-function}.
     \end{description}
-  \item[Update BitCondition] The values of the bit conditions are known.
+  \item[Update BitCondition.] The values of the bit conditions are known.
     \begin{description}
-      \item[Set bit condition value] The assumptions resulting from the bit condition value are set. They are given in Table~\ref{tab:dse-assumptions}.
-      \item[Run SAT solver] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
+      \item[Set bit condition value.] The assumptions resulting from the bit condition value are set. They are given in Table~\ref{tab:dse-assumptions}.
+      \item[Run SAT solver.] If the SAT solver returns satisfiability as result, the differential characteristic is satisfiable.
     \end{description}
 \end{description}
 

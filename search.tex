@@ -8,11 +8,11 @@ A hash algorithm is a function assigning a given key to a value of fixed width $
 ~\cite[2]{Cry02}:
 %
 \begin{description}
-  \item[Preimage resistance] It is computationally infeasible to find a preimage
+  \item[Preimage resistance.] It is computationally infeasible to find a preimage
     $x$ for any given $y$ such that $h(x) = y$.
-  \item[Second-preimage resistance] It is computationally infeasible to find a
+  \item[Second-preimage resistance.] It is computationally infeasible to find a
     second preimage $x'$ for any given $x$ such that $h(x) = h(x')$ with $x \neq x'$.
-  \item[Collision resistance] It is computationally infeasible to find two preimages
+  \item[Collision resistance.] It is computationally infeasible to find two preimages
     $x$ and $x'$ such that $h(x) = h(x')$ with $x \neq x'$.
 \end{description}
 
@@ -188,9 +188,9 @@ Evaluating the satisfiability of a differential characteristic is the main requi
 \nltool{} is a framework for differential cryptanalysis. It provides various hash algorithm implementations and also allows to run partial subsets (like steps or rounds as defined by the particular hash algorithm). It implements a search algorithm trying to derive knowledge about some differential state of the hash algorithm evaluation. This propagation is a crucial task of the tool and this implementation improves upon existing ones. The tool and the details of the search got introduced in the paper~\cite[293]{Cry07}. For our implementation it is important to distinguish between two states within the search:
 
 \begin{description}
-  \item[Initialization]
+  \item[Initialization.]
     At initialization the hash algorithm (to be used) is known and the structure of the differential characteristic can be retrieved. The value of any bit condition is not yet available.
-  \item[Update BitCondition]
+  \item[Update BitCondition.]
     In the update step the values of the differential characteristic are provided and the final decision about satisfiability of the characteristic can be made.
 \end{description}
 
