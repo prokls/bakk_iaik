@@ -90,7 +90,7 @@ This approach was implemented first, but has a major problem: Assuming the evalu
 
 As expected this approach is pretty inefficient and when put into practice this approach solved $0$ iterations per second, which turned out to be the worst performance of all approaches.
 
-For the Update BitCondition step we are going to use SAT solver assumption. These are assignments to boolean variables which will be discarded after one run of the SAT solver without the loss of the clauses (as discussed in section~\ref{sec:satsolvers-assumptions}). Assignments are not as powerful as clauses and so the encoding has to be designed in such a way that we can use assignments to define the value of a bit condition.
+For the Update BitCondition step we are going to use SAT solver assumptions. These are assignments to boolean variables which will be discarded after one run of the SAT solver without the loss of the clauses (as discussed in section~\ref{sec:satsolvers-assumptions}). Assignments are not as powerful as clauses and so the encoding has to be designed in such a way that we can use assignments to define the value of a bit condition.
 
 \begin{algorithm}[p]
   \SetKwInOut{Input}{Input}
