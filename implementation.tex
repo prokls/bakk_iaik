@@ -88,7 +88,7 @@ Algorithm~\ref{algo:apply-func-se} shows the algorithm to apply the elementary f
 %
 This approach was implemented first, but has a major problem: Assuming the evaluated differential characteristic is satisfiable, a more restrictive bit condition will be used by the automated search at one position. However for the next iteration the SAT solver has to be destroyed and the configuration must be built up again. This takes a long time. We can use the fact that the Initialization step stays the same, but the Update BitCondition step is different. And so we want to use an approach which runs the Initialization step only once and the Update BitCondition is run on every search iteration.
 
-This approach was not put into practice for the automated search and so no performance statistics are available here.
+As expected this approach is pretty inefficient and when put into practice this approach solved $0$ iterations per second, which turned out to be the worst performance of all approaches.
 
 For the Update BitCondition step we are going to use SAT solver assumption. These are assignments to boolean variables which will be discarded after one run of the SAT solver without the loss of the clauses (as discussed in section~\ref{sec:satsolvers-assumptions}). Assignments are not as powerful as clauses and so the encoding has to be designed in such a way that we can use assignments to define the value of a bit condition.
 
