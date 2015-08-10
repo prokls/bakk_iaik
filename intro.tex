@@ -1,6 +1,6 @@
 Hash algorithms are ubiquitous in our world of digital communication.
-For example using hash algorithms we can verify data integrity of messages
-with high probability without transmitting the actual message. Fundamentally
+Using hash algorithms we can verify data integrity of messages with high
+probability without transmitting the actual message for example. Fundamentally
 hash algorithms take arbitrary input data and return a hash value of fixed
 size specific for this input. In cryptology the security of cryptographic
 systems depends on three properties of hash algorithms. One of them is called
@@ -24,8 +24,8 @@ algorithm starting with an intermediate state.
 Our implementation is an extension of an existing framework for differential
 cryptanalysis. We therefore do not represent the state of a hash algorithm
 evaluation directly, but rather the difference between two instances evaluating
-a hash algorithm. Hopefully each instance will end up with different input data
-but results in the same hash value.
+a hash algorithm. Hopefully in the end we can find two input values resulting
+in the same hash value.
 
 Additionally we introduce three encodings to represent the differential state
 in boolean algebra to build a bridge between SAT solving and hash algorithm

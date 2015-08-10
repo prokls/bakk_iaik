@@ -2,9 +2,9 @@
 
 TEXLIVE=/usr/local/texlive/bin/x86_64-linux/
 
-rm thesis.{aux,bbl,bcf,blg,glo,idx,ilg,ind,loa,log,out,run.xml,toc,xdy}
-rm thesis-blx.bib
-rm thesis.glsdefs
+rm -f thesis.{aux,bbl,bcf,blg,glo,idx,ilg,ind,loa,log,out,run.xml,toc,xdy}
+rm -f thesis-blx.bib
+rm -f thesis.glsdefs
 
 $TEXLIVE"pdflatex" thesis &&
   $TEXLIVE"biber" thesis &&
